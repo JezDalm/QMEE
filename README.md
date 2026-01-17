@@ -7,3 +7,9 @@ My dataset consists of five sexual crosses of _A. fumigatus_ along with quantita
 # Questions I Hope to Answer
 - Are there fitness tradeoffs between triazole resistant strains compared to susceptible strains?
 - Do resistant and susceptible strains cluster based on associated traits?
+
+# What my Assignment2_Cleandata.R Script Does
+This script takes "Af_CrossData.csv" and converts some of my minimum inhibitory concentration (MIC) columns to characters so that I can obtain their frequencies. I also assign data as either "Progeny" or "Parent" based on values found in the "Strain" column of the dataset. This file can be found from the main branch and should be run from here as well.
+
+# What my Assignment2_readRDS.R Script Does
+This script takes the clean dataset and subsets columns into desired dataframes. I create histograms to compare distributions among biofilm formation between the different biparental crosses. I also attempt to fit a model to answer the question if triazole resistant strains experience a tradeoff at sub-MIC levels compared to triazole susceptible strains. This file can be found from the main branch and should be run from here as well.
