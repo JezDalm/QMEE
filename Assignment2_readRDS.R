@@ -1,14 +1,15 @@
-library(dplyr)
-library(tidyverse)
-library(tidyr)
-library(readr)
-library(stats)
-library(stringr)
-library(ggplot2)
+library(tidyverse) ## BMB: as before, library() statements below are unnecessary
+## library(dplyr)
+## library(tidyr)
+## library(readr)
+## library(stats)
+## library(stringr)
+## library(ggplot2)
+
 library(lme4)
 library(emmeans)
-library(lmerTest)
-library(pbkrtest)
+library(lmerTest) ## BMB: this will load lme4 automatically
+library(pbkrtest) ## BMB: are you using this?
 
 ##Load RDS file
 AllAf_data_clean <- read_rds("AllAf_data_clean.rds")
@@ -27,7 +28,7 @@ subset_progeny <- AllAf_data_clean|>
 by_cross_biofilm <- subset_progeny |> 
   split(subset_progeny$Strain) #split by cross
 
-for (i in seq_along(by_cross_biofilm)) { #creates sequence of numbers 1-5
+if (FALSE) for (i in seq_along(by_cross_biofilm)) { #creates sequence of numbers 1-5
   current_cross <- by_cross_biofilm[[i]] #if i is 3, takes by_cross_biofilm dataframe
   cross_name <- names(by_cross_biofilm)[i] #Extract by_cross_biofilm and its name
   
@@ -38,6 +39,23 @@ biofilm_plot <- ggplot(current_cross, aes(x = StandardizedBiofilm_OD)) +
   
   print(biofilm_plot) 
 }
+
+table(lengths(by_cross_biofilm))
+## BMB: this seems weird and useless, unless I'm missing something.
+## by_cross_biofilm has 528 elements, each of which has only 3 observations
+## Drawing a histogram with three elements seems pointless, and drawing
+## 528 of them seems even worse. Am I missing something? Did I somehow
+## get to a different point in the workflow than you did?
+
+## if you had fewer strains you could do this ... but it is silly
+## with 528 strains (tries to plot them all in 1 figure)
+theme_set(theme_minimal())
+
+## AllAf_data_clean |>
+##   filter(Generation == "Progeny") |>
+##   ggplot(aes(x = StandardizedBiofilm_OD)) +
+##   geom_histogram(fill = "steelblue", color = "white") +
+##   facet_wrap(~Strain)
 
 ##2. I want to compare sub-MIC means between Strains that are resistant and strains that are susceptible while factoring in MIC values of itraconazole and voriconazole
 progeny_Itra <- AllAf_data_clean|> 
@@ -72,6 +90,8 @@ progeny_Vori_long <- progeny_Vori_rename |>
   mutate(Concentration = as.numeric(Concentration)) |>
   filter(Concentration <= 0.12)
 
+## BMB: eventually try to refactor this into a function that can do both
+
 ##Fitting a model for itraconazole and seeing which one is better
 model_itr <- lmer(
   OD ~ TriazoleClass + Concentration + Itraconazole_MIC + (1 | Strain),
@@ -85,6 +105,10 @@ Model_itr_2 <- lmer(
   data = progeny_Itra_long, 
   REML = FALSE
 )
+
+## BMB: in general I wouldn't recommend using model testing this way; if
+## you think a random effect is relevant, and the model works, include it.
+## Don't decide by testing (more on this later).
 
 anova(model_itr, Model_itr_2) #second model is better since adding a random slope for concentration significantly improves the model (Chisq = 28.797, p = 5.58 × 10^-7)
 
@@ -101,7 +125,7 @@ emm_df_itra <- as.data.frame(emm_conc_itra) #convert to df
 print(emm_df_itra)
 
 emm_df_itra <- emm_df_itra %>%
-  mutate(Concentration_f = factor(Concentration)) #convert Concentration to factor for plot
+  mutate(Concentration_f = factor(Concentration)) #convert Concentration to factor for plot ## BMB: why not do this up front?
 
 #Plot model
 ggplot(emm_df_itra,
@@ -125,3 +149,7 @@ ggplot(emm_df_itra,
   theme(
     legend.title = element_blank()
   )
+
+## BMB: it would be nice to plot the raw data on here as well
+
+## mark: 2
