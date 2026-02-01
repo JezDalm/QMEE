@@ -125,3 +125,5 @@ plot(reaction_norm)
 #reaction_norm + scale_y_log10()
 
 ## Grade 2.1/3
+
+## PS: For dodging, you might need to use something like group = interaction(TriazoleClass, Strain). Ask us on Teams if you have issues.
