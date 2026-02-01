@@ -3,6 +3,10 @@ library(tidyverse)
 library(ggbeeswarm)
 library(Hmisc)
 
+pdf(width=10)
+
+## JD: I really like that you are using a previously made .rds. Next time also mention that this script depends on your clearning script.
+
 ##Load RDS file
 AllAf_data_clean <- read_rds("AllAf_data_clean.rds")
 str(AllAf_data_clean)
@@ -94,9 +98,14 @@ progeny_temp_long <- progeny_temp |>
     Time = as.factor(Time)
   )
 
+## JD: I think the plot would be helped by transparency, and also by dodging. 
+## I added the transparency for now; it's not completely obvious to me how to dodge with both lines and points, but I guess not too hard.
+## group = Strain would be more beautifully moved to the plot-level aes
+## I also added some code at the top that makes both plots wider (and plots them as pdfs, probably you can find a nicer way with rstudio). 
+### The second plot definitely looks nicer when it's wide.
 ##This plot is not ideal and not really I want to present this data. Any feedback on how I could improve this to show if resistant versus susceptible strains have reaction norm differences to different temperatures? This might not be possible because of just how the data is.
 reaction_norm <- ggplot(progeny_temp_long, aes(x = Temperature, y = OD, color = TriazoleClass)) +
-  geom_line(aes(group = Strain), alpha = 1, linewidth = 1) +
+  geom_line(aes(group = Strain), alpha = 0.4, linewidth = 1) +
   geom_point(aes(group = Strain), size = 2) +
   labs(x = "Temperature (°C)", y = "Mean Optical Density (OD)", color= "Triazole Phenotype") +
   theme_bw(base_size = 14) +
@@ -110,5 +119,9 @@ reaction_norm <- ggplot(progeny_temp_long, aes(x = Temperature, y = OD, color = 
 
 plot(reaction_norm)
 
+## JD: The move of just removing a point seems a bit weird. Also, it would be good to indicate that the facet variable is time, maybe with a paste command.
+
 ##I attempted to transform it but didn't really look better
 #reaction_norm + scale_y_log10()
+
+## Grade 2.1/3
