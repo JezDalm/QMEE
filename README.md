@@ -20,3 +20,15 @@ This script takes the clean dataset and subsets columns into desired dataframes.
 For my first ggplot, I plotted a beeswarm showing mean optical density across different drug concentrations (ug/ml) for three antifungals. The data was subsetted to only include data points from a biparental cross of interest (both parents are divergent in their triazole antifungal phenotypes). I chose a beeswarm because I really wanted to emphasize the quantitiative variation among each strain especially when they have the same MIC value. Compared to a boxplot, here you can see each individual raw data point rather than their overall distributions within each concentration and antifungal. For the basis of these choices I really considered the Cleveland hierarchy (having different antifungals along a copmmon scale). The plot can be found in [OD_cross4_beeswarm.png](OD_cross4_beeswarm.png).
 
 For my second ggplot, I attempted to visualize a reaction norm plot for temperature growth data within the same cross. Each line represents an individual strain and the color represents the triazole phenotype. My goal was to identify any visual differences between susceptible versus resistant strains when they are grown at different temperatures. Again, I also wanted to emphasize the variation among OD values within a biparental cross which holds great power in linkage mapping. Here, I considered the proximity of comparions as all points are relatively comparable to each other. The plot can be found in [Temp_cross4_rxnnorm.png](Temp_cross4_rxnnorm.png).
+
+## Assignment 5 JD comments
+
+Try to avoid asking if something exists as a scientific framing question. Better to ask about sign or size.
+
+It seems sloppy to say your measure of biofilm production is also a measure of tolerance and of resistance. There should be a more clear way to think about or to put it, I think.
+
+Ratio is an interesting choice for your measure of clearance; is there evidence that these things should be proportional all else equal?
+
+Whose sd would you use as a basis of comparison? Wild-type or pooled I guess are the leading choices. Have you compared the sd to the mean before picking a value of 0.5?
+
+Grade: 1.9/3
