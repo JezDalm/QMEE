@@ -8,6 +8,8 @@ My dataset consists of five sexual crosses of _A. fumigatus_ along with quantita
 - Are there fitness tradeoffs between triazole resistant strains compared to susceptible strains?
 - Do resistant and susceptible strains cluster based on associated traits?
 
+JD: Didn't mention that your assignment 1 seemed fine although went beyond what we meant to ask for. Grade: 2/3
+
 # What my Assignment2_Cleandata.R Script Does
 This script takes "Af_CrossData.csv" and converts some of my minimum inhibitory concentration (MIC) columns to characters so that I can obtain their frequencies. I also assign data as either "Progeny" or "Parent" based on values found in the "Strain" column of the dataset. This file can be found from the main branch and should be run from here as well.
 
