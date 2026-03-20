@@ -32,3 +32,5 @@ Ratio is an interesting choice for your measure of clearance; is there evidence 
 Whose sd would you use as a basis of comparison? Wild-type or pooled I guess are the leading choices. Have you compared the sd to the mean before picking a value of 0.5?
 
 Grade: 1.9/3
+
+

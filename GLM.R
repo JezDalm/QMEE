@@ -11,6 +11,9 @@ AllAf_data_clean$TriazoleClass <- factor(AllAf_data_clean$TriazoleClass)
 AllAf_data_clean$TriazoleClass <- relevel(AllAf_data_clean$TriazoleClass, ref = "susceptible")
 table(AllAf_data_clean$TriazoleClass) #check counts
 
+## JD: Yes, they do. At least a little. Whether you can show it or now.
+## Can't you think of a more scientific question? Do you mean, for example, are they positively correlated with resistance?
+
 ##Predictor variables are TempGrowth41_48h, Standardized Biofilm formation, and Hemolysin Production after 48h
 AllAf_data_clean <- AllAf_data_clean |>
   rename(TempGrowth41_48h = `TempGrowth41.48h.`) |>
@@ -38,6 +41,8 @@ plot(glm_resistance)
 ##Scale-Location: Increasing spread of residuals with fitted values. Upward trend in red smoothing line. This shows variance changes across fitted probabilities.
 ##Residuals vs Leverage: Some large residuals showing some influence among those strains.
 
+## JD: Ben said that the classic diagnostic plots were not so good for glms, and offered other alternatives. Also, the assignment asked for at least one non-diagnostic (predictive or inferential) plot
+
 ##Add interaction between virulence and thermal growth
 glm_resistance_int <- glm(TriazoleClass ~ TempGrowth41_48h * StandardizedBiofilm_OD * ZOC_CD_48h,
     family = binomial,
@@ -50,3 +55,5 @@ plot(glm_resistance_int)
 ##Similar to what we see in previous model
 
 ##Overall, there seems to be no interaction effect between thermal growth and virulence-related factors in predictin resistance. These predictors overall may not strongly predict resistance (apart from hemolysin production). I believe this is probably more due to biological noise rather than the actual model used. Another thought I had is that resistance is rare among this dataset so they could account for the extreme residuals??
+
+## JD: If you didn't say there “seems to be no ... effect” you wouldn't have to hedge about noise. The effect is not seen clearly in this data set. Grade: 1.5/3
